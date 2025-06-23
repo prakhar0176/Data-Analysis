@@ -46,3 +46,12 @@ This repository contains my step-by-step practice and notes for preparing for da
 - `notebooks/` – Jupyter notebooks
 - `notes/` – Interview prep notes and cheatsheets
 - `outputs/` – Final output file
+
+| File Name                       | Purpose                                       |
+| ------------------------------- | --------------------------------------------- |
+| `pandas_essentials.md`          | Basics: loading, cleaning, renaming, nulls    |
+| `pandas_groupby_filtering.md`   | Filtering, sorting, groupby, aggregation      |
+| `pandas_eda_visualization.md`   | EDA, plotting, correlation heatmaps           |
+| `pandas_interview_questions.md` | Pandas-focused Q\&A with real interview-style |
+| `sql_basics.md`                 | SQL SELECT, JOIN, WHERE, GROUP BY             |
+| `sql_interview_questions.md`    | SQL interview questions & window functions    |

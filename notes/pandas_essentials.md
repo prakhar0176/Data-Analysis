@@ -219,3 +219,100 @@ Series.notna()
   ```python
   df[df['A'].notna()]
   ```
+
+## Handling Duplicates in Data Analysis
+
+When working with datasets, especially large ones, it is common to encounter duplicate entries. These can skew analysis, cause overcounting, or lead to biased outcomes. Pandas provides powerful tools to detect and handle such duplicates.
+
+### `duplicated()` Method
+
+- **Purpose**: Returns a Boolean Series indicating whether each row is a duplicate of a previous row.
+- **Usage**:
+  ```python
+  df.duplicated()
+  ```
+
+### Parameters of `duplicated()` in Pandas
+
+| Parameter      | Type                                 | Description                                                                                                                                                             |
+| -------------- | ------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `subset`       | label or list-like                   | Column label(s) to consider when identifying duplicates. Defaults to all.                                                                                               |
+| `keep`         | {`'first'`, `'last'`, `False`}       | Determines which duplicates to mark as `True`: <br> `'first'` (default): Keeps first occurrence <br> `'last'`: Keeps last occurrence <br> `False`: Marks all duplicates |
+| `inplace`      | `bool` (deprecated)                  | Whether to perform operation in-place. Deprecated in newer versions.                                                                                                    |
+| `ignore_index` | `bool` (available in newer versions) | Whether to reset the index of the result. Useful when chaining operations.                                                                                              |
+
+> 📝 **Note**: As of recent pandas versions, `inplace` is deprecated and might be removed in future releases. Always refer to the latest documentation for updates.
+
+### `drop_duplicates()` Method
+
+- **Purpose**: Removes duplicate rows from a DataFrame.
+- **Usage**:
+  ```python
+  df.drop_duplicates()
+  ```
+
+### Parameters of `drop_duplicates()` in Pandas
+
+| Parameter      | Type                           | Description                                                                                                                                                  |
+| -------------- | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `subset`       | label or list-like             | Column label(s) to consider when identifying duplicates. Defaults to all.                                                                                    |
+| `keep`         | {`'first'`, `'last'`, `False`} | Determines which duplicate to keep: <br> `'first'` (default): Keeps first occurrence <br> `'last'`: Keeps last occurrence <br> `False`: Drops all duplicates |
+| `inplace`      | `bool`                         | If `True`, performs operation in-place and returns `None`. Default is `False`.                                                                               |
+| `ignore_index` | `bool`                         | If `True`, the resulting DataFrame index will be labeled 0, 1, …, n - 1. Default is `False`.                                                                 |
+
+> 📝 **Note**: Use `ignore_index=True` when you don’t need to retain the original index after dropping duplicates, especially useful in chained operations.
+
+## Renaming Columns and Index in Pandas
+
+The `rename()` method in pandas allows you to **change the names of the index or column labels**. This is useful for making DataFrame labels more descriptive, readable, or consistent.
+
+### Syntax
+
+```python
+DataFrame.rename(mapper=None, *, index=None, columns=None, axis=None, copy=True, inplace=False, level=None, errors='ignore')
+```
+
+**Example**
+
+```
+# Rename column 'A' to 'Alpha'
+df_renamed = df.rename(columns={'A': 'Alpha'})
+
+# Rename index 0 to 'Row1'
+df_renamed = df.rename(index={0: 'Row1'})
+
+```
+
+### Parameters of `rename()` in Pandas
+
+| Parameter | Type                               | Description                                                                                         |
+| --------- | ---------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `mapper`  | dict, Series, function             | A general mapping to rename labels for a specific axis (index or columns).                          |
+| `index`   | dict, Series, function             | A mapping to rename the index (rows). Use instead of `mapper` for clarity.                          |
+| `columns` | dict, Series, function             | A mapping to rename the columns.                                                                    |
+| `axis`    | {0 or `'index'`, 1 or `'columns'`} | Axis along which to apply the renaming. Ignored if `index` or `columns` are provided.               |
+| `inplace` | bool                               | If `True`, modifies the original DataFrame. Default is `False`.                                     |
+| `level`   | int or level name                  | For MultiIndex: specifies the level(s) to apply the renaming.                                       |
+| `errors`  | {'ignore', 'raise'}                | Behavior when a label is not found. `'ignore'` will silently ignore, `'raise'` will throw an error. |
+
+## Dropping Data in Pandas with `drop()`
+
+The `drop()` method is used to **remove rows or columns** from a DataFrame. It is a flexible and commonly used tool for cleaning and reshaping data.
+
+### Syntax
+
+```python
+DataFrame.drop(labels=None, *, axis=0, index=None, columns=None, level=None, inplace=False, errors='raise')
+```
+
+### Parameters of `drop()` in Pandas
+
+| Parameter | Type                               | Description                                                                                              |
+| --------- | ---------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| `labels`  | single label or list-like          | Index or column labels to drop. Optional if `index` or `columns` is used.                                |
+| `axis`    | {0 or `'index'`, 1 or `'columns'`} | Determines whether to drop from rows (`0` or `'index'`) or columns (`1` or `'columns'`). Default is `0`. |
+| `index`   | single label or list-like          | Alternative to `labels`. Specifies row labels to drop.                                                   |
+| `columns` | single label or list-like          | Alternative to `labels`. Specifies column labels to drop.                                                |
+| `level`   | int or level name                  | If the axis is a MultiIndex, this specifies the level from which labels will be removed.                 |
+| `inplace` | bool                               | If `True`, modifies the DataFrame in place and returns `None`. Default is `False`.                       |
+| `errors`  | {'ignore', 'raise'}                | If `'ignore'`, suppresses errors for nonexistent labels. Default is `'raise'`.                           |
